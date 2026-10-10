@@ -29,3 +29,12 @@ dist/
 
 .vercel
 .env*
+
+# Debug and tooling leftovers, not part of the site
+.playwright-mcp/
+*_snapshot*.yml
+page_snapshot.yml
+current-status.md
+deployment-status.md
+vercel-status.md
+vercel-dashboard.md
