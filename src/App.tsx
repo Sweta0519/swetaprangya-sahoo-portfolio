@@ -61,6 +61,14 @@ interface PersonalInfo {
   };
 }
 
+interface PublicWorkItem {
+  title: string;
+  org: string;
+  kind: string;
+  detail: string;
+  url: string;
+}
+
 interface ResumeData {
   personal: PersonalInfo;
   experience: WorkExperience[];
@@ -69,6 +77,7 @@ interface ResumeData {
   education: Education[];
   certificates?: Certificate[];
   testimonials?: any[];
+  publicWork?: PublicWorkItem[];
 }
 
 interface ThemeSettings {
@@ -128,9 +137,9 @@ export default function App() {
   const resumeData: ResumeData = {
   "personal": {
     "name": "SWETAPRANGYA SAHOO",
-    "title": "Technical Customer Support Engineer | 8+ Years Experience (5 Years in B2B SaaS) - Test",
-    "subtitle": "",
-    "bio": "Technical Customer Support Engineer | 8+ Years Experience (5 Years in B2B SaaS) Award-winning S enior Support Engineer specializing in log analysis, network debugging, and resolving complex enterprise escalations. I excel at finding the root cause of API and integration failures, working directly with engineering to improve the core product.",
+    "title": "Senior Customer Support Engineer",
+    "subtitle": "8 years in B2B SaaS technical support",
+    "bio": "Award-winning senior support engineer specializing in log analysis, network debugging, and resolving complex enterprise escalations. I find the root cause of API and integration failures, and work directly with engineering to turn them into product fixes.",
     "avatar": "SS",
     "email": "swetapsahoo05@gmail.com",
     "phone": "+491728314843",
@@ -245,6 +254,60 @@ export default function App() {
       "techStack": ["React", "TypeScript", "Vite", "Tailwind CSS", "AI", "ATS", "Resume Parsing"],
       "category": "AI Tools",
       "featured": true
+    }
+  ],
+  // Public work: every item is a link anyone can open and check. This is the
+  // part a template cannot give you, and the part a hiring manager can verify
+  // in two minutes.
+  "publicWork": [
+    {
+      "title": "Zeebe element template schema fix",
+      "org": "Camunda",
+      "kind": "Merged pull request",
+      "detail": "The catalog example pointed at the generic schema, so copied templates failed to validate.",
+      "url": "https://github.com/camunda/camunda-docs/pull/10012"
+    },
+    {
+      "title": "Extensions SDK backend API example",
+      "org": "Docker",
+      "kind": "Merged pull request",
+      "detail": "A missing closing parenthesis in a documented code example.",
+      "url": "https://github.com/docker/docs/pull/26150"
+    },
+    {
+      "title": "Legacy exporter warning for the 8.8 to 8.9 upgrade",
+      "org": "Camunda",
+      "kind": "Approved pull request",
+      "detail": "Disabling Elasticsearch or Optimize leaves the exporter running, blocking log compaction. Written up after maintainer review.",
+      "url": "https://github.com/camunda/camunda-docs/pull/10037"
+    },
+    {
+      "title": "SSL certificate path on the psql guide",
+      "org": "Supabase",
+      "kind": "Open pull request",
+      "detail": "The page linked the certificate download to its own anchor, so there was no way to reach it.",
+      "url": "https://github.com/supabase/supabase/pull/51358"
+    },
+    {
+      "title": "Two different 403s in Vercel MCP",
+      "org": "Vercel",
+      "kind": "Root-cause analysis",
+      "detail": "Ten community threads were treating one status code as one bug. Measured the OAuth layer and separated client approval from team scope.",
+      "url": "https://community.vercel.com/t/two-different-403s-client-approval-and-team-scope-are-separate-problems/50539"
+    },
+    {
+      "title": "Telling three n8n WhatsApp Trigger faults apart",
+      "org": "n8n",
+      "kind": "Runbook",
+      "detail": "Nine community threads, one symptom, three faults, ordered by which check costs least.",
+      "url": "https://github.com/Sweta0519/support-engineering-notes/blob/main/runbooks/n8n-whatsapp-trigger-not-receiving-messages.md"
+    },
+    {
+      "title": "Support engineering notes",
+      "org": "Open source",
+      "kind": "Public repository",
+      "detail": "Playbooks, checklists and runbooks on technical support work. CC BY 4.0.",
+      "url": "https://github.com/Sweta0519/support-engineering-notes"
     }
   ],
   "certificates": [
@@ -455,22 +518,14 @@ export default function App() {
     }, 1000);
   };
 
-  // Dynamically load the 3D hero component on the client only to avoid SSR/bundler externalization issues
-  const [hero3D, setHero3D] = useState<React.ComponentType | null>(null);
-  useEffect(() => {
-    let mounted = true;
-    if (typeof window === 'undefined') return;
-    (async () => {
-      try {
-        const mod = await import('./components/Hero3DModel');
-        if (mounted && mod && mod.default) setHero3D(() => mod.default as React.ComponentType);
-      } catch (err) {
-        // keep fallback visible and log the error for debugging
-        console.error('Failed to dynamically import Hero3DModel:', err);
-      }
-    })();
-    return () => { mounted = false; };
-  }, []);
+  // The sidebar now shows a portrait instead of the 3D monogram, so the
+  // Hero3DModel loader is gone. It pulled an 858 kB three.js chunk for a
+  // decorative shape. The component file is still in the repo if it is ever
+  // wanted elsewhere.
+  //
+  // If the portrait ever fails to load, fall back to the initials rather than
+  // leaving a hole where a face should be.
+  const [avatarFailed, setAvatarFailed] = useState(false);
 
   if (theme.id === 'creative') {
     return (
@@ -483,13 +538,27 @@ export default function App() {
         <div className="relative z-10 flex flex-col md:flex-row min-h-screen">
           <aside className={`w-full md:w-80 md:min-h-screen p-6 md:p-8 md:sticky md:top-0 flex flex-col backdrop-blur-[20px] ${sidebarBg}`}>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <div className={`w-24 h-24 md:w-32 md:h-32 rounded-3xl mb-4 md:mb-6 overflow-hidden border border-slate-200 dark:border-white/20 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500 ${primaryBg}/20 flex items-center justify-center text-3xl md:text-4xl font-black ${textHeading} relative group`}>
-                  {hero3D ? (
-                    <React.Suspense fallback={<div className="w-full h-full flex items-center justify-center">SS</div>}>
-                      {React.createElement(hero3D)}
-                    </React.Suspense>
+                <div className="relative mb-4 md:mb-6 h-40 w-40 z-20 animate-avatarArrive">
+                  <div
+                    aria-hidden="true"
+                    className={`absolute -inset-2 rounded-[2rem] ${primaryBg}/20 blur-xl animate-avatarRing`}
+                  />
+                  {avatarFailed ? (
+                    <div
+                      className={`relative h-full w-full rounded-3xl border border-slate-200 dark:border-white/20 shadow-2xl ${primaryBg}/20 flex items-center justify-center text-3xl md:text-4xl font-black ${textHeading}`}
+                    >
+                      {resumeData.personal.avatar}
+                    </div>
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center">SS</div>
+                    <img
+                      src="/avatar.jpg"
+                      alt={`Portrait of ${resumeData.personal.name}`}
+                      width={160}
+                      height={160}
+                      loading="eager"
+                      onError={() => setAvatarFailed(true)}
+                      className="relative h-full w-full rounded-3xl object-cover border border-slate-200 dark:border-white/20 shadow-2xl"
+                    />
                   )}
                 </div>
               <h1 className={`text-2xl md:text-3xl font-black ${textHeading} tracking-tight mb-2 leading-tight break-words w-full`}>{resumeData.personal.name}</h1>
@@ -512,8 +581,8 @@ export default function App() {
             </div>
 
             <nav className="mt-6 md:mt-12 flex flex-row md:flex-col gap-2 md:space-y-1 overflow-x-auto pb-2 md:pb-0 scrollbar-none justify-start w-full">
-              {['About', 'Experience', 'Projects', 'Skills', ...(resumeData.certificates && resumeData.certificates.length > 0 ? ['Awards'] : []), 'Contact'].map(item => (
-                <a key={item} href={`#${item.toLowerCase()}`} className={`whitespace-nowrap py-1.5 px-3 md:py-2.5 md:px-4 rounded-xl text-slate-500 dark:text-slate-400 hover:${textHeading} hover:bg-slate-200/50 dark:hover:bg-white/5 transition-all text-xs md:text-sm font-bold tracking-wide`}>
+              {['About', 'Experience', 'Projects', 'Public work', 'Skills', ...(resumeData.certificates && resumeData.certificates.length > 0 ? ['Awards'] : []), 'Contact'].map(item => (
+                <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} className={`whitespace-nowrap py-1.5 px-3 md:py-2.5 md:px-4 rounded-xl text-slate-500 dark:text-slate-400 hover:${textHeading} hover:bg-slate-200/50 dark:hover:bg-white/5 transition-all text-xs md:text-sm font-bold tracking-wide`}>
                   {item}
                 </a>
               ))}
@@ -595,6 +664,36 @@ export default function App() {
                       ))}
                     </div>
                   </div>
+                ))}
+              </div>
+            </ThemeSection>
+
+            <ThemeSection title="Public work" id="public-work" textHeading={textHeading}>
+              <p className={`text-xs md:text-sm ${textBody} mb-6 md:mb-8 leading-relaxed max-w-2xl`}>
+                Contributions to the products I support, in public. Every line below is a link you can open.
+              </p>
+              <div className="flex flex-col gap-3 md:gap-4">
+                {(resumeData.publicWork || []).map((item: any, idx: number) => (
+                  <a
+                    key={idx}
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`backdrop-blur-md ${cardBg} border rounded-2xl p-5 md:p-6 ${cardHoverBg} transition-all group flex flex-col gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-400`}
+                  >
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`text-[9px] md:text-[10px] font-black uppercase tracking-widest ${pillBg} px-2.5 py-1.5 rounded-lg border`}>
+                        {item.org}
+                      </span>
+                      <span className={`text-[9px] md:text-[10px] font-black uppercase tracking-widest ${primaryClass}`}>
+                        {item.kind}
+                      </span>
+                    </div>
+                    <h3 className={`text-base md:text-lg font-bold ${textHeading} tracking-tight group-hover:underline underline-offset-4`}>
+                      {item.title}
+                    </h3>
+                    <p className={`text-xs md:text-sm ${textBody} leading-relaxed`}>{item.detail}</p>
+                  </a>
                 ))}
               </div>
             </ThemeSection>
@@ -1065,10 +1164,10 @@ export default function App() {
                   </div>
 
                   <nav className="flex flex-col space-y-2">
-                    {['About', 'Experience', 'Projects', 'Skills', ...(resumeData.certificates && resumeData.certificates.length > 0 ? ['Awards'] : [])].map((item) => (
-                      <a 
-                        key={item} 
-                        href={`#${item.toLowerCase()}`}
+                    {['About', 'Experience', 'Projects', 'Public work', 'Skills', ...(resumeData.certificates && resumeData.certificates.length > 0 ? ['Awards'] : [])].map((item) => (
+                      <a
+                        key={item}
+                        href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
                         onClick={() => setIsMobileMenuOpen(false)}
                         className={`text-sm font-bold uppercase tracking-widest ${isDark ? 'text-slate-300 hover:text-white border-white/5' : 'text-slate-600 hover:text-slate-900 border-slate-100'} hover:translate-x-1.5 transition-all py-3.5 border-b last:border-0 flex items-center justify-between group`}
                       >

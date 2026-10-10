@@ -62,3 +62,34 @@ html {
   animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+
+/* The avatar arrives rather than appearing: a short rise with a slight
+   overshoot, then the ring settles behind it. Motion is skipped entirely for
+   anyone who asked their system not to animate. */
+@keyframes avatarArrive {
+  0%   { opacity: 0; transform: translateY(18px) scale(0.92); }
+  60%  { opacity: 1; transform: translateY(-3px) scale(1.015); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes avatarRing {
+  0%   { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-avatarArrive {
+  animation: avatarArrive 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-avatarRing {
+  animation: avatarRing 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-avatarArrive,
+  .animate-avatarRing {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
