@@ -273,7 +273,9 @@ export default function App() {
       "techStack": ["React", "TypeScript", "Vite", "Supabase", "Stripe", "n8n"],
       "category": "AI Tools",
       "featured": false,
-      "liveUrl": "https://pro-portfolio-builder.vercel.app/"
+      "liveUrl": "https://pro-portfolio-builder.vercel.app/",
+      "image": "/proportfolio.jpg",
+      "imageAlt": "The ProPortfolio landing page: upload a PDF resume and get an ATS-optimised portfolio site and AI interview prep, with a preview of the builder dashboard."
     }
   ],
   // Public work: every item is a link anyone can open and check. This is the
@@ -734,7 +736,7 @@ Reply to: ${contactEmail}`
             <ThemeSection title="Projects" id="projects" textHeading={textHeading}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {resumeData.projects.map((proj: any, idx: number) => (
-                  <div key={idx} className={` ${cardBg} border rounded-lg md:rounded-xl p-6 md:p-8 ${cardHoverBg} transition-colors group relative overflow-hidden flex flex-col ${proj.image ? 'md:col-span-2' : ''}`}>
+                  <div key={idx} className={` ${cardBg} border rounded-lg md:rounded-xl p-6 md:p-8 ${cardHoverBg} transition-colors group relative overflow-hidden flex flex-col ${proj.image && proj.featured ? 'md:col-span-2' : ''}`}>
                     {proj.image ? (
                       <a href={proj.liveUrl || proj.repoUrl} target="_blank" rel="noreferrer" className="mb-6 block overflow-hidden rounded-lg border border-slate-200 dark:border-white/10">
                         <img
