@@ -384,13 +384,13 @@ export default function App() {
 
   const colors = {
     violet: {
-      bg: 'bg-indigo-600',
+      bg: 'bg-blue-600',
       text: 'text-indigo-500',
       border: 'border-indigo-500',
       accentBg: 'bg-indigo-50/50 dark:bg-indigo-900/20',
-      gradient: 'from-indigo-600 to-violet-600',
+      gradient: 'from-blue-700 to-sky-600',
       badge: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300',
-      glow: 'shadow-indigo-500/20 shadow-lg'
+      glow: 'shadow-blue-500/20 shadow-lg'
     },
     emerald: {
       bg: 'bg-emerald-600',
@@ -438,13 +438,13 @@ export default function App() {
       glow: 'shadow-slate-500/10 shadow-lg'
     }
   }[theme.primaryColor] || {
-    bg: 'bg-indigo-600',
+    bg: 'bg-blue-600',
     text: 'text-indigo-500',
     border: 'border-indigo-500',
     accentBg: 'bg-indigo-50/50 dark:bg-indigo-900/20',
-    gradient: 'from-indigo-600 to-violet-600',
+    gradient: 'from-blue-700 to-sky-600',
     badge: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300',
-    glow: 'shadow-indigo-500/20 shadow-lg'
+    glow: 'shadow-blue-500/20 shadow-lg'
   };
 
   const groupedSkills = useMemo(() => {
@@ -530,22 +530,21 @@ export default function App() {
   if (theme.id === 'creative') {
     return (
       <div className={`min-h-screen ${bgColor} ${fontClass} relative overflow-hidden transition-colors duration-500`}>
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className={`absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full opacity-20 blur-[120px] ${primaryBg} animate-pulse`}></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full opacity-20 blur-[120px] bg-indigo-500 animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
+        {/* Two full-viewport blurred circles used to pulse here, one of them
+            hardcoded indigo while the theme is blue. They were decoration with
+            no job, and the pulse ran forever on every page. Removed. */}
 
         <div className="relative z-10 flex flex-col md:flex-row min-h-screen">
-          <aside className={`w-full md:w-80 md:min-h-screen p-6 md:p-8 md:sticky md:top-0 flex flex-col backdrop-blur-[20px] ${sidebarBg}`}>
+          <aside className={`w-full md:w-80 md:min-h-screen p-6 md:p-8 md:sticky md:top-0 flex flex-col ${sidebarBg}`}>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
                 <div className="relative mb-4 md:mb-6 h-40 w-40 z-20 animate-avatarArrive">
                   <div
                     aria-hidden="true"
-                    className={`absolute -inset-2 rounded-[2rem] ${primaryBg}/20 blur-xl animate-avatarRing`}
+                    className={`absolute -inset-2 rounded-xl ${primaryBg}/20 blur-xl animate-avatarRing`}
                   />
                   {avatarFailed ? (
                     <div
-                      className={`relative h-full w-full rounded-3xl border border-slate-200 dark:border-white/20 shadow-2xl ${primaryBg}/20 flex items-center justify-center text-3xl md:text-4xl font-black ${textHeading}`}
+                      className={`relative h-full w-full rounded-lg border border-slate-200 dark:border-white/20 shadow-2xl ${primaryBg}/20 flex items-center justify-center text-3xl md:text-4xl font-black ${textHeading}`}
                     >
                       {resumeData.personal.avatar}
                     </div>
@@ -557,7 +556,7 @@ export default function App() {
                       height={160}
                       loading="eager"
                       onError={() => setAvatarFailed(true)}
-                      className="relative h-full w-full rounded-3xl object-cover border border-slate-200 dark:border-white/20 shadow-2xl"
+                      className="relative h-full w-full rounded-lg object-cover border border-slate-200 dark:border-white/20 shadow-2xl"
                     />
                   )}
                 </div>
@@ -582,7 +581,7 @@ export default function App() {
 
             <nav className="mt-6 md:mt-12 flex flex-row md:flex-col gap-2 md:space-y-1 overflow-x-auto pb-2 md:pb-0 scrollbar-none justify-start w-full">
               {['About', 'Experience', 'Projects', 'Public work', 'Skills', ...(resumeData.certificates && resumeData.certificates.length > 0 ? ['Awards'] : []), 'Contact'].map(item => (
-                <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} className={`whitespace-nowrap py-1.5 px-3 md:py-2.5 md:px-4 rounded-xl text-slate-500 dark:text-slate-400 hover:${textHeading} hover:bg-slate-200/50 dark:hover:bg-white/5 transition-all text-xs md:text-sm font-bold tracking-wide`}>
+                <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} className={`whitespace-nowrap py-1.5 px-3 md:py-2.5 md:px-4 rounded-xl text-slate-500 dark:text-slate-400 hover:${textHeading} hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors text-xs md:text-sm font-bold tracking-wide`}>
                   {item}
                 </a>
               ))}
@@ -594,7 +593,7 @@ export default function App() {
               <h2 className={`text-3xl md:text-6xl font-black ${textHeading} mb-6 md:mb-8 leading-tight tracking-tighter`}>
                 Solving <span className={`${primaryClass} underline decoration-slate-200 dark:decoration-white/10 decoration-8 underline-offset-4`}>complex</span> technical challenges.
               </h2>
-              <div className={`backdrop-blur-md ${cardBg} border rounded-2xl md:rounded-3xl p-6 md:p-10 relative overflow-hidden group`}>
+              <div className={` ${cardBg} border rounded-lg md:rounded-xl p-6 md:p-10 relative overflow-hidden group`}>
                 <div className={`absolute -right-10 -bottom-10 w-40 h-40 ${primaryBg} opacity-5 blur-3xl rounded-full`}></div>
                 <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-3">Professional Summary</div>
                 <p className={`text-base md:text-xl ${textBody} leading-relaxed font-medium`}>
@@ -627,7 +626,7 @@ export default function App() {
               <div className="space-y-10 md:space-y-12">
                 {resumeData.experience.map((exp: any, idx: number) => (
                   <div key={idx} className="group relative pl-6 md:pl-8 border-l border-slate-200 dark:border-white/10">
-                    <div className={`absolute left-[-5.5px] top-0 w-2.5 h-2.5 rounded-full ${primaryBg} ring-4 ring-slate-100 dark:ring-white/5 transition-all group-hover:scale-150`}></div>
+                    <div className={`absolute left-[-5.5px] top-0 w-2.5 h-2.5 rounded-full ${primaryBg} ring-4 ring-slate-100 dark:ring-white/5 transition-colors group-hover:scale-150`}></div>
                     <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                       <h3 className={`text-xl md:text-2xl font-bold ${textHeading} tracking-tight`}>{exp.position}</h3>
                       <span className={`text-xs font-bold ${pillBg} px-3 py-1 rounded-full border`}>{exp.period}</span>
@@ -649,9 +648,9 @@ export default function App() {
             <ThemeSection title="Projects" id="projects" textHeading={textHeading}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {resumeData.projects.map((proj: any, idx: number) => (
-                  <div key={idx} className={`backdrop-blur-md ${cardBg} border rounded-2xl md:rounded-3xl p-6 md:p-8 ${cardHoverBg} transition-all group relative overflow-hidden flex flex-col`}>
+                  <div key={idx} className={` ${cardBg} border rounded-lg md:rounded-xl p-6 md:p-8 ${cardHoverBg} transition-colors group relative overflow-hidden flex flex-col`}>
                     <div className={`absolute -right-4 -top-4 w-24 h-24 ${primaryBg} opacity-5 blur-2xl group-hover:opacity-20 transition-opacity`}></div>
-                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl mb-4 md:mb-6 ${primaryBg}/20 flex items-center justify-center ${primaryClass} border border-slate-200 dark:border-white/5`}>
+                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-lg mb-4 md:mb-6 ${primaryBg}/20 flex items-center justify-center ${primaryClass} border border-slate-200 dark:border-white/5`}>
                       <Code className="w-6 h-6 md:w-7 md:h-7" />
                     </div>
                     <h3 className={`text-xl md:text-2xl font-bold ${textHeading} mb-2 md:mb-3 tracking-tight`}>{proj.title}</h3>
@@ -679,7 +678,7 @@ export default function App() {
                     href={item.url}
                     target="_blank"
                     rel="noreferrer"
-                    className={`backdrop-blur-md ${cardBg} border rounded-2xl p-5 md:p-6 ${cardHoverBg} transition-all group flex flex-col gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-400`}
+                    className={`${cardBg} border-l-2 border-l-blue-500/40 border-y border-r rounded-lg p-5 md:p-6 ${cardHoverBg} hover:border-l-blue-400 transition-colors group flex flex-col gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-400`}
                   >
                     <div className="flex flex-wrap items-center gap-2">
                       <span className={`text-[9px] md:text-[10px] font-black uppercase tracking-widest ${pillBg} px-2.5 py-1.5 rounded-lg border`}>
@@ -701,14 +700,14 @@ export default function App() {
             <ThemeSection title="Skills" id="skills" textHeading={textHeading}>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                 {resumeData.skills.map((skill: any) => (
-                  <div key={skill.name} className={`${cardBg} border rounded-2xl p-5 md:p-6 ${cardHoverBg} transition-all group`}>
+                  <div key={skill.name} className={`${cardBg} border rounded-lg p-5 md:p-6 ${cardHoverBg} transition-colors group`}>
                     <div className="flex justify-between items-center mb-3 md:mb-4">
-                      <div className={`text-xs md:text-sm font-bold ${textHeading} group-hover:text-indigo-400 transition-colors`}>{skill.name}</div>
+                      <div className={`text-xs md:text-sm font-bold ${textHeading} group-hover:text-blue-400 transition-colors`}>{skill.name}</div>
                       <span className="text-[10px] text-slate-500 font-black">{skill.level}%</span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
                       <div 
-                        className={`h-full ${primaryBg} transition-all duration-1000`} 
+                        className={`h-full ${primaryBg} transition-colors duration-1000`} 
                         style={{ width: `${skill.level}%` }}
                       ></div>
                     </div>
@@ -721,7 +720,7 @@ export default function App() {
               <ThemeSection title="Awards & Recognitions" id="awards" textHeading={textHeading}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                   {resumeData.certificates.map((cert: any) => (
-                    <div key={cert.id} className={`${cardBg} border rounded-2xl p-5 md:p-6 ${cardHoverBg} transition-all group relative overflow-hidden flex items-start gap-4`}>
+                    <div key={cert.id} className={`${cardBg} border rounded-lg p-5 md:p-6 ${cardHoverBg} transition-colors group relative overflow-hidden flex items-start gap-4`}>
                       <div className="w-12 h-12 rounded-xl bg-amber-500/10 dark:bg-amber-400/10 flex items-center justify-center border border-amber-500/20 dark:border-amber-400/20 shrink-0">
                         <Trophy className="w-5 h-5 text-amber-500 dark:text-amber-400 fill-amber-500/20 animate-pulse-subtle" />
                       </div>
@@ -736,30 +735,30 @@ export default function App() {
             )}
 
             <section id="contact" className="py-24 scroll-slide">
-              <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-indigo-600 to-violet-700 text-white relative overflow-hidden shadow-2xl shadow-indigo-500/20">
+              <div className="p-10 rounded-xl bg-gradient-to-br from-blue-700 to-sky-600 text-white relative overflow-hidden shadow-2xl shadow-blue-500/20">
                 <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12">
                   <div className="space-y-6">
                     <h3 className="text-4xl font-black tracking-tight leading-none">Let's build <br/> something epic.</h3>
-                    <p className="text-indigo-100 font-medium">I'm currently available for freelance projects and full-time opportunities.</p>
+                    <p className="text-blue-100 font-medium">I'm currently available for freelance projects and full-time opportunities.</p>
                     <div className="pt-4 flex gap-4">
                       {resumeData.personal.socials.linkedin && (
-                        <a href={resumeData.personal.socials.linkedin} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        <a href={resumeData.personal.socials.linkedin} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                           <SocialIcon type="linkedin" />
                         </a>
                       )}
                       {resumeData.personal.socials.twitter && (
-                        <a href={resumeData.personal.socials.twitter} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        <a href={resumeData.personal.socials.twitter} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                           <SocialIcon type="twitter" />
                         </a>
                       )}
                       {resumeData.personal.socials.github && (
-                        <a href={resumeData.personal.socials.github} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                        <a href={resumeData.personal.socials.github} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                           <SocialIcon type="github" />
                         </a>
                       )}
                     </div>
                   </div>
-                  <div className="bg-white/5 rounded-3xl p-6 md:p-8 backdrop-blur-md">
+                  <div className="bg-white/5 rounded-lg p-6 md:p-8">
                     {submitSuccess ? (
                       <p className="text-emerald-400 font-bold text-center py-8">Thanks for reaching out! Message sent.</p>
                     ) : (
@@ -767,19 +766,19 @@ export default function App() {
                         <input 
                           type="text" required value={contactName} onChange={e => setContactName(e.target.value)}
                           placeholder="Your Name" 
-                          className="w-full bg-white/10 border border-white/10 rounded-2xl p-4 text-sm focus:bg-white/20 outline-none transition-all placeholder:text-white/40" 
+                          className="w-full bg-white/10 border border-white/10 rounded-lg p-4 text-sm focus:bg-white/20 outline-none transition-colors placeholder:text-white/40" 
                         />
                         <input 
                           type="email" required value={contactEmail} onChange={e => setContactEmail(e.target.value)}
                           placeholder="Your Email" 
-                          className="w-full bg-white/10 border border-white/10 rounded-2xl p-4 text-sm focus:bg-white/20 outline-none transition-all placeholder:text-white/40" 
+                          className="w-full bg-white/10 border border-white/10 rounded-lg p-4 text-sm focus:bg-white/20 outline-none transition-colors placeholder:text-white/40" 
                         />
                         <textarea 
                           required value={contactMessage} onChange={e => setContactMessage(e.target.value)}
                           placeholder="Your Project Idea" rows={4} 
-                          className="w-full bg-white/10 border border-white/10 rounded-2xl p-4 text-sm focus:bg-white/20 outline-none transition-all placeholder:text-white/40" 
+                          className="w-full bg-white/10 border border-white/10 rounded-lg p-4 text-sm focus:bg-white/20 outline-none transition-colors placeholder:text-white/40" 
                         />
-                        <button type="submit" className="w-full py-4 bg-white text-indigo-600 rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl">Send Message</button>
+                        <button type="submit" className="w-full py-4 bg-white text-blue-700 rounded-lg font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-colors shadow-xl">Send Message</button>
                       </form>
                     )}
                   </div>
@@ -797,7 +796,7 @@ export default function App() {
       <div className={`min-h-screen ${bgColor} ${fontClass} relative overflow-hidden flex flex-col items-center transition-colors duration-500`}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className={`absolute top-[-20%] left-[-10%] w-[70%] h-[70%] rounded-full opacity-30 blur-[150px] ${primaryBg} animate-pulse`}></div>
-          <div className="absolute bottom-[-20%] right-[-10%] w-[70%] h-[70%] rounded-full opacity-30 blur-[150px] bg-indigo-600 animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute bottom-[-20%] right-[-10%] w-[70%] h-[70%] rounded-full opacity-30 blur-[150px] bg-blue-600 animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
         <div className="container mx-auto px-4 py-16 md:py-32 relative z-10 max-w-4xl flex flex-col items-center">
@@ -807,7 +806,7 @@ export default function App() {
             </div>
             <h1 className={`text-4xl md:text-8xl lg:text-9xl font-black ${textHeading} tracking-tighter mb-6 md:mb-10 leading-[0.85] break-words w-full px-4`}>
               {resumeData.personal.name.split(' ')[0]} <br/>
-              <span className={`bg-gradient-to-r ${primaryClass.replace('text-', 'from-')} to-indigo-400 bg-clip-text text-transparent break-words`}>
+              <span className={`bg-gradient-to-r ${primaryClass.replace('text-', 'from-')} to-sky-400 bg-clip-text text-transparent break-words`}>
                 {resumeData.personal.name.split(' ').slice(1).join(' ') || ''}
               </span>
             </h1>
@@ -816,10 +815,10 @@ export default function App() {
             </p>
             
             <div className="mt-8 md:mt-16 flex flex-wrap justify-center gap-4 md:gap-6 w-full px-4">
-              <a href="#contact" className={`${primaryBg} text-white font-black px-6 py-4 md:px-10 md:py-5 rounded-full text-xs uppercase tracking-[0.2em] hover:scale-105 transition-transform shadow-2xl shadow-indigo-500/20 text-center w-full sm:w-auto`}>
+              <a href="#contact" className={`${primaryBg} text-white font-black px-6 py-4 md:px-10 md:py-5 rounded-full text-xs uppercase tracking-[0.2em] transition-transform shadow-2xl shadow-blue-500/20 text-center w-full sm:w-auto`}>
                 Let's Work Together
               </a>
-              <a href="#about" className={`backdrop-blur-md ${pillBg} border ${textHeading} font-black px-6 py-4 md:px-10 md:py-5 rounded-full text-xs uppercase tracking-[0.2em] hover:bg-slate-200 dark:hover:bg-white/10 transition-all text-center w-full sm:w-auto`}>
+              <a href="#about" className={` ${pillBg} border ${textHeading} font-black px-6 py-4 md:px-10 md:py-5 rounded-full text-xs uppercase tracking-[0.2em] hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-center w-full sm:w-auto`}>
                 About Me
               </a>
             </div>
@@ -827,10 +826,10 @@ export default function App() {
 
           <div className="w-full space-y-20 md:space-y-40">
             <ThemeSection title="About Me" id="about" textHeading={textHeading}>
-              <div className={`relative rounded-[2rem] md:rounded-[3rem] overflow-hidden ${cardBg} border transition-all p-6 md:p-16 flex flex-col md:flex-row gap-6 md:gap-12 items-center`}>
+              <div className={`relative rounded-xl md:rounded-[3rem] overflow-hidden ${cardBg} border transition-colors p-6 md:p-16 flex flex-col md:flex-row gap-6 md:gap-12 items-center`}>
                 <div className="flex-1 space-y-4">
                   <h3 className={`text-2xl md:text-3xl font-black ${textHeading} leading-tight`}>
-                    Behind the <span className={`bg-gradient-to-r ${primaryClass.replace('text-', 'from-')} to-indigo-400 bg-clip-text text-transparent`}>craft</span>.
+                    Behind the <span className={`bg-gradient-to-r ${primaryClass.replace('text-', 'from-')} to-sky-400 bg-clip-text text-transparent`}>craft</span>.
                   </h3>
                   <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-1">Professional Summary</div>
                   <p className={`text-base md:text-xl ${textBody} leading-relaxed font-medium`}>
@@ -838,10 +837,10 @@ export default function App() {
                   </p>
                 </div>
                 {resumeData.personal.avatar && (
-                  <div className="w-36 h-36 md:w-48 md:h-48 rounded-[2rem] overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl relative group shrink-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-50 group-hover:opacity-0 transition-opacity"></div>
+                  <div className="w-36 h-36 md:w-48 md:h-48 rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl relative group shrink-0">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-50 group-hover:opacity-0 transition-opacity"></div>
                     {resumeData.personal.avatar.length > 2 ? (
-                      <img src={resumeData.personal.avatar} alt={resumeData.personal.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                      <img src={resumeData.personal.avatar} alt={resumeData.personal.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-colors duration-700" />
                     ) : (
                       <div className={`w-full h-full flex items-center justify-center ${textHeading} text-5xl md:text-7xl font-black bg-slate-100 dark:bg-white/5`}>
                         {resumeData.personal.avatar}
@@ -860,7 +859,7 @@ export default function App() {
                       {exp.period}
                     </div>
                     <div>
-                      <h3 className={`text-xl md:text-3xl font-black ${textHeading} mb-2 md:mb-3 group-hover:text-indigo-400 transition-colors leading-tight`}>{exp.position}</h3>
+                      <h3 className={`text-xl md:text-3xl font-black ${textHeading} mb-2 md:mb-3 group-hover:text-blue-400 transition-colors leading-tight`}>{exp.position}</h3>
                       <p className={`text-sm md:text-lg font-bold ${primaryClass} mb-4 md:mb-8`}>{exp.company}</p>
                       <div className="space-y-3 md:space-y-6">
                         {exp.description.map((bullet: string, bIdx: number) => (
@@ -876,7 +875,7 @@ export default function App() {
             <ThemeSection title="Selected Projects" id="projects" textHeading={textHeading}>
               <div className="space-y-10 md:space-y-20">
                 {resumeData.projects.map((proj: any, idx: number) => (
-                  <div key={idx} className={`group relative rounded-[2rem] md:rounded-[3rem] overflow-hidden ${cardBg} border transition-all p-6 md:p-16`}>
+                  <div key={idx} className={`group relative rounded-xl md:rounded-[3rem] overflow-hidden ${cardBg} border transition-colors p-6 md:p-16`}>
                     <div className={`absolute -right-20 -top-20 w-80 h-80 ${primaryBg} opacity-5 blur-[100px] group-hover:opacity-10 transition-opacity`}></div>
                     <div className={`text-[10px] md:text-xs font-black uppercase tracking-[0.3em] ${primaryClass} mb-4 md:mb-6`}>{proj.category || "Project"}</div>
                     <h3 className={`text-2xl md:text-5xl font-black ${textHeading} mb-4 md:mb-8 group-hover:translate-x-3 transition-transform leading-none`}>{proj.title}</h3>
@@ -913,9 +912,9 @@ export default function App() {
               <ThemeSection title="Awards & Recognitions" id="awards" textHeading={textHeading}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   {resumeData.certificates.map((cert: any) => (
-                    <div key={cert.id} className={`group relative rounded-[2rem] overflow-hidden ${cardBg} border transition-all p-6 md:p-10 flex gap-6 items-start`}>
+                    <div key={cert.id} className={`group relative rounded-xl overflow-hidden ${cardBg} border transition-colors p-6 md:p-10 flex gap-6 items-start`}>
                       <div className={`absolute -right-10 -top-10 w-24 h-24 ${primaryBg} opacity-5 blur-2xl group-hover:opacity-10 transition-opacity`}></div>
-                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-amber-500/10 dark:bg-amber-400/10 flex items-center justify-center border border-amber-500/20 dark:border-amber-400/20 shrink-0">
+                      <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-amber-500/10 dark:bg-amber-400/10 flex items-center justify-center border border-amber-500/20 dark:border-amber-400/20 shrink-0">
                         <Trophy className="w-6 h-6 md:w-8 md:h-8 text-amber-500 dark:text-amber-400 fill-amber-500/20 animate-pulse-subtle" />
                       </div>
                       <div className="text-left">
@@ -929,10 +928,10 @@ export default function App() {
             )}
 
             <section id="contact" className="py-24 scroll-slide">
-              <div className="p-10 rounded-[2.5rem] bg-gradient-to-br from-indigo-600 to-violet-700 text-white relative overflow-hidden shadow-2xl shadow-indigo-500/20">
+              <div className="p-10 rounded-xl bg-gradient-to-br from-blue-700 to-sky-600 text-white relative overflow-hidden shadow-2xl shadow-blue-500/20">
                 <div className="relative z-10 flex flex-col items-center text-center space-y-6">
                   <h3 className="text-4xl font-black tracking-tight leading-none">Let's build something epic.</h3>
-                  <p className="text-indigo-100 font-medium max-w-xl">I'm currently available for freelance projects and full-time opportunities.</p>
+                  <p className="text-blue-100 font-medium max-w-xl">I'm currently available for freelance projects and full-time opportunities.</p>
                   
                   {submitSuccess ? (
                     <p className="text-emerald-400 font-bold text-center py-8">Thanks for reaching out! Message sent.</p>
@@ -941,35 +940,35 @@ export default function App() {
                       <input 
                         type="text" required value={contactName} onChange={e => setContactName(e.target.value)}
                         placeholder="Your Name" 
-                        className="w-full bg-white/10 border border-white/10 rounded-2xl p-4 text-sm focus:bg-white/20 outline-none transition-all placeholder:text-white/40 text-left" 
+                        className="w-full bg-white/10 border border-white/10 rounded-lg p-4 text-sm focus:bg-white/20 outline-none transition-colors placeholder:text-white/40 text-left" 
                       />
                       <input 
                         type="email" required value={contactEmail} onChange={e => setContactEmail(e.target.value)}
                         placeholder="Your Email" 
-                        className="w-full bg-white/10 border border-white/10 rounded-2xl p-4 text-sm focus:bg-white/20 outline-none transition-all placeholder:text-white/40 text-left" 
+                        className="w-full bg-white/10 border border-white/10 rounded-lg p-4 text-sm focus:bg-white/20 outline-none transition-colors placeholder:text-white/40 text-left" 
                       />
                       <textarea 
                         required value={contactMessage} onChange={e => setContactMessage(e.target.value)}
                         placeholder="Your Project Idea" rows={4} 
-                        className="w-full bg-white/10 border border-white/10 rounded-2xl p-4 text-sm focus:bg-white/20 outline-none transition-all placeholder:text-white/40 text-left" 
+                        className="w-full bg-white/10 border border-white/10 rounded-lg p-4 text-sm focus:bg-white/20 outline-none transition-colors placeholder:text-white/40 text-left" 
                       />
-                      <button type="submit" className="w-full py-4 bg-white text-indigo-600 rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl">Send Message</button>
+                      <button type="submit" className="w-full py-4 bg-white text-blue-700 rounded-lg font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-colors shadow-xl">Send Message</button>
                     </form>
                   )}
                   
                   <div className="pt-8 flex gap-4">
                     {resumeData.personal.socials.linkedin && (
-                      <a href={resumeData.personal.socials.linkedin} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                      <a href={resumeData.personal.socials.linkedin} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                         <SocialIcon type="linkedin" />
                       </a>
                     )}
                     {resumeData.personal.socials.twitter && (
-                      <a href={resumeData.personal.socials.twitter} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                      <a href={resumeData.personal.socials.twitter} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                         <SocialIcon type="twitter" />
                       </a>
                     )}
                     {resumeData.personal.socials.github && (
-                      <a href={resumeData.personal.socials.github} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                      <a href={resumeData.personal.socials.github} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                         <SocialIcon type="github" />
                       </a>
                     )}
@@ -1019,7 +1018,7 @@ export default function App() {
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-indigo-900/20 via-transparent to-black pointer-events-none"></div>
           
           <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div className="inline-block p-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6 backdrop-blur-sm">
+            <div className="inline-block p-1 rounded-full bg-blue-600/10 border border-indigo-500/20 mb-6">
               <span className="text-xs font-mono font-bold tracking-widest text-indigo-400 px-4 py-1 uppercase">Initializing System...</span>
             </div>
             <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter mb-4 font-mono uppercase">
@@ -1029,10 +1028,10 @@ export default function App() {
               <span className="text-emerald-500">{">"}</span> {resumeData.personal.title}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="#about" className={`px-8 py-4 ${colors.bg} text-white font-mono font-bold uppercase tracking-widest hover:opacity-80 transition-all border border-white/20 shadow-2xl shadow-indigo-500/40`}>
+              <a href="#about" className={`px-8 py-4 ${colors.bg} text-white font-mono font-bold uppercase tracking-widest hover:opacity-80 transition-colors border border-white/20 shadow-2xl shadow-indigo-500/40`}>
                 Access Data
               </a>
-              <a href="#contact" className="px-8 py-4 bg-transparent text-white font-mono font-bold uppercase tracking-widest hover:bg-white/5 transition-all border border-white/20">
+              <a href="#contact" className="px-8 py-4 bg-transparent text-white font-mono font-bold uppercase tracking-widest hover:bg-white/5 transition-colors border border-white/20">
                 Contact.exe
               </a>
             </div>
@@ -1066,7 +1065,7 @@ export default function App() {
               </p>
             </div>
             <div className="flex flex-wrap gap-4 pt-4">
-              <a href="#contact" className={`px-6 py-3.5 md:px-8 md:py-4 rounded-2xl text-white font-bold transition-all hover:scale-105 ${colors.bg} ${colors.glow}`}>
+              <a href="#contact" className={`px-6 py-3.5 md:px-8 md:py-4 rounded-lg text-white font-bold transition-colors ${colors.bg} ${colors.glow}`}>
                 Get in Touch
               </a>
               <div className="flex items-center gap-4 px-6 border-l border-slate-200 dark:border-slate-800 ml-2">
@@ -1089,10 +1088,10 @@ export default function App() {
             </div>
           </div>
           <div className="lg:col-span-2 relative">
-            <div className={`aspect-square max-w-[280px] mx-auto lg:max-w-none rounded-[2rem] bg-gradient-to-br ${colors.gradient} shadow-2xl relative z-10 overflow-hidden group`}>
+            <div className={`aspect-square max-w-[280px] mx-auto lg:max-w-none rounded-xl bg-gradient-to-br ${colors.gradient} shadow-2xl relative z-10 overflow-hidden group`}>
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
               {resumeData.personal.avatar.length > 2 ? (
-                <img src={resumeData.personal.avatar} alt={resumeData.personal.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                <img src={resumeData.personal.avatar} alt={resumeData.personal.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-colors duration-700" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-white text-6xl md:text-8xl font-black">
                   {resumeData.personal.avatar}
@@ -1109,7 +1108,7 @@ export default function App() {
   return (
     <div className={`min-h-screen ${bgColor} ${fontClass} transition-colors duration-500 flex flex-col`}>
       {!isClassic && (
-        <header className={`sticky top-0 z-50 backdrop-blur-lg ${headerBg} px-6 py-4`}>
+        <header className={`sticky top-0 z-50 ${headerBg} px-6 py-4`}>
           <div className="max-w-5xl mx-auto flex justify-between items-center">
             <div className="flex items-center gap-3">
               <div className={`w-8 h-8 rounded-lg ${colors.bg} flex items-center justify-center text-white font-black text-xs`}>
@@ -1126,12 +1125,12 @@ export default function App() {
               {resumeData.certificates && resumeData.certificates.length > 0 && (
                 <a href="#awards" className={`hover:${textHeading} transition-colors`}>Awards</a>
               )}
-              <a href="#contact" className={`px-4 py-2 rounded-xl ${colors.bg} text-white hover:opacity-85 hover:scale-[1.03] transition-all text-[10px]`}>Hire Me</a>
+              <a href="#contact" className={`px-4 py-2 rounded-xl ${colors.bg} text-white hover:opacity-85 hover:scale-[1.03] transition-colors text-[10px]`}>Hire Me</a>
             </nav>
 
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`md:hidden p-2 rounded-xl text-slate-500 hover:${textHeading} hover:bg-slate-200/50 dark:hover:bg-white/5 transition-all`}
+              className={`md:hidden p-2 rounded-xl text-slate-500 hover:${textHeading} hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors`}
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -1142,7 +1141,7 @@ export default function App() {
             <>
               <div 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="md:hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[110] transition-opacity duration-300 animate-fadeIn"
+                className="md:hidden fixed inset-0 bg-slate-950/60 z-[110] transition-opacity duration-300 animate-fadeIn"
               />
               <div 
                 className={`md:hidden fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] ${isDark ? 'bg-slate-950 border-l border-white/10 text-white' : 'bg-white border-l border-slate-200 text-slate-900'} shadow-2xl z-[120] p-6 flex flex-col justify-between transform transition-transform duration-300 ease-out animate-slideInRight`}
@@ -1157,7 +1156,7 @@ export default function App() {
                     </div>
                     <button 
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="p-2 rounded-xl text-slate-500 hover:bg-slate-150 dark:hover:bg-white/5 transition-all"
+                      className="p-2 rounded-xl text-slate-500 hover:bg-slate-150 dark:hover:bg-white/5 transition-colors"
                     >
                       <X className="w-5 h-5" />
                     </button>
@@ -1169,7 +1168,7 @@ export default function App() {
                         key={item}
                         href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`text-sm font-bold uppercase tracking-widest ${isDark ? 'text-slate-300 hover:text-white border-white/5' : 'text-slate-600 hover:text-slate-900 border-slate-100'} hover:translate-x-1.5 transition-all py-3.5 border-b last:border-0 flex items-center justify-between group`}
+                        className={`text-sm font-bold uppercase tracking-widest ${isDark ? 'text-slate-300 hover:text-white border-white/5' : 'text-slate-600 hover:text-slate-900 border-slate-100'} hover:translate-x-1.5 transition-colors py-3.5 border-b last:border-0 flex items-center justify-between group`}
                       >
                         <span>{item}</span>
                         <span className={`opacity-0 group-hover:opacity-100 transition-opacity text-xs ${colors.text}`}>→</span>
@@ -1182,7 +1181,7 @@ export default function App() {
                   <a 
                     href="#contact"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`w-full py-4 rounded-2xl ${colors.bg} ${colors.glow} text-white font-black uppercase tracking-widest text-[10px] text-center block transition-all hover:opacity-90 active:scale-[0.98] shadow-lg`}
+                    className={`w-full py-4 rounded-lg ${colors.bg} ${colors.glow} text-white font-black uppercase tracking-widest text-[10px] text-center block transition-colors hover:opacity-90 active:scale-[0.98] shadow-lg`}
                   >
                     Hire Me
                   </a>
@@ -1203,8 +1202,8 @@ export default function App() {
                 <span className="text-indigo-500">//</span> SYSTEM_SUMMARY
               </h2>
             </div>
-            <div className="p-8 rounded-3xl bg-black border border-indigo-500/30 hover:border-indigo-400 relative overflow-hidden group font-mono">
-              <div className="absolute top-0 right-0 px-4 py-1.5 bg-indigo-500/10 border-b border-l border-indigo-500/30 text-[10px] text-indigo-400 uppercase tracking-widest font-bold">
+            <div className="p-8 rounded-lg bg-black border border-indigo-500/30 hover:border-indigo-400 relative overflow-hidden group font-mono">
+              <div className="absolute top-0 right-0 px-4 py-1.5 bg-blue-600/10 border-b border-l border-indigo-500/30 text-[10px] text-indigo-400 uppercase tracking-widest font-bold">
                 STATUS: DECRYPTED
               </div>
               <div className="space-y-6">
@@ -1264,9 +1263,9 @@ export default function App() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {resumeData.projects.map((proj: any, idx: number) => (
-              <div key={idx} className={isClassic ? 'border-b border-slate-100 pb-8 last:border-0' : `p-6 md:p-8 rounded-3xl ${cardBg} border ${cardHoverBg} transition-all group`}>
+              <div key={idx} className={isClassic ? 'border-b border-slate-100 pb-8 last:border-0' : `p-6 md:p-8 rounded-lg ${cardBg} border ${cardHoverBg} transition-colors group`}>
                 <div className="flex justify-between items-start mb-4">
-                  <h3 className={`text-xl font-bold ${isClassic ? 'text-slate-900' : `${textHeading} group-hover:text-indigo-400 transition-colors`}`}>{proj.title}</h3>
+                  <h3 className={`text-xl font-bold ${isClassic ? 'text-slate-900' : `${textHeading} group-hover:text-blue-400 transition-colors`}`}>{proj.title}</h3>
                   <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">{proj.category}</span>
                 </div>
                 <p className={`text-base mb-6 leading-relaxed ${isClassic ? 'text-slate-700' : textBody}`}>{proj.description}</p>
@@ -1304,7 +1303,7 @@ export default function App() {
                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-4">{cat}</h4>
                   <div className="flex flex-wrap gap-2">
                     {skills.map((s: any) => (
-                      <span key={s.name} className={`text-xs font-bold px-4 py-2 rounded-xl ${isClassic ? 'bg-slate-100 text-slate-800' : `${pillBg} border hover:bg-slate-200/80 dark:hover:bg-white/10 transition-all`}`}>
+                      <span key={s.name} className={`text-xs font-bold px-4 py-2 rounded-xl ${isClassic ? 'bg-slate-100 text-slate-800' : `${pillBg} border hover:bg-slate-200/80 dark:hover:bg-white/10 transition-colors`}`}>
                         {s.name}
                       </span>
                     ))}
@@ -1324,14 +1323,14 @@ export default function App() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {resumeData.certificates.map((cert: any) => (
-                <div key={cert.id} className={isClassic ? 'border-b border-slate-100 pb-6 last:border-0' : `p-6 md:p-8 rounded-3xl ${cardBg} border ${cardHoverBg} transition-all group flex items-start gap-4`}>
+                <div key={cert.id} className={isClassic ? 'border-b border-slate-100 pb-6 last:border-0' : `p-6 md:p-8 rounded-lg ${cardBg} border ${cardHoverBg} transition-colors group flex items-start gap-4`}>
                   {!isClassic && (
-                    <div className="w-12 h-12 rounded-2xl bg-amber-500/10 dark:bg-amber-400/10 flex items-center justify-center border border-amber-500/20 dark:border-amber-400/20 shrink-0">
+                    <div className="w-12 h-12 rounded-lg bg-amber-500/10 dark:bg-amber-400/10 flex items-center justify-center border border-amber-500/20 dark:border-amber-400/20 shrink-0">
                       <Trophy className="w-5 h-5 text-amber-500 dark:text-amber-400 fill-amber-500/20 animate-pulse-subtle" />
                     </div>
                   )}
                   <div>
-                    <h3 className={`text-xl font-bold ${isClassic ? 'text-slate-900' : `${textHeading} group-hover:text-indigo-400 transition-colors`}`}>{cert.name}</h3>
+                    <h3 className={`text-xl font-bold ${isClassic ? 'text-slate-900' : `${textHeading} group-hover:text-blue-400 transition-colors`}`}>{cert.name}</h3>
                     <p className={`text-sm ${isClassic ? 'text-slate-600' : 'text-slate-400'} mt-1`}>{cert.issuer} {cert.date ? `• ${cert.date}` : ''}</p>
                   </div>
                 </div>
@@ -1342,7 +1341,7 @@ export default function App() {
 
         {!isClassic && (
           <section id="contact">
-            <div className="p-6 md:p-12 rounded-2xl md:rounded-[3rem] bg-slate-900 text-white relative overflow-hidden">
+            <div className="p-6 md:p-12 rounded-lg md:rounded-[3rem] bg-slate-900 text-white relative overflow-hidden">
               <div className="relative z-10 flex flex-col items-center text-center space-y-4 md:space-y-8">
                 <h3 className="text-3xl md:text-4xl font-black tracking-tight">Ready to collaborate?</h3>
                 <p className="text-slate-400 max-w-xl text-sm md:text-lg font-medium">I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.</p>
@@ -1354,32 +1353,32 @@ export default function App() {
                     <input 
                       type="text" required value={contactName} onChange={e => setContactName(e.target.value)}
                       placeholder="Your Name" 
-                      className="w-full bg-slate-800 border border-slate-700 rounded-2xl p-4 text-sm focus:bg-slate-700 outline-none transition-all placeholder:text-white/40 text-left" 
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg p-4 text-sm focus:bg-slate-700 outline-none transition-colors placeholder:text-white/40 text-left" 
                     />
                     <input 
                       type="email" required value={contactEmail} onChange={e => setContactEmail(e.target.value)}
                       placeholder="Your Email" 
-                      className="w-full bg-slate-800 border border-slate-700 rounded-2xl p-4 text-sm focus:bg-slate-700 outline-none transition-all placeholder:text-white/40 text-left" 
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg p-4 text-sm focus:bg-slate-700 outline-none transition-colors placeholder:text-white/40 text-left" 
                     />
                     <textarea 
                       required value={contactMessage} onChange={e => setContactMessage(e.target.value)}
                       placeholder="Your Project Idea" rows={4} 
-                      className="w-full bg-slate-800 border border-slate-700 rounded-2xl p-4 text-sm focus:bg-slate-700 outline-none transition-all placeholder:text-white/40 text-left" 
+                      className="w-full bg-slate-800 border border-slate-700 rounded-lg p-4 text-sm focus:bg-slate-700 outline-none transition-colors placeholder:text-white/40 text-left" 
                     />
-                    <button type="submit" className="w-full py-4 bg-white text-indigo-600 rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl">Send Message</button>
+                    <button type="submit" className="w-full py-4 bg-white text-blue-700 rounded-lg font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-colors shadow-xl">Send Message</button>
                   </form>
                 )}
 
                 <div className="flex flex-wrap justify-center gap-6 md:gap-8 pt-4">
                   {resumeData.personal.email && (
                     <div className="flex flex-col items-center gap-2">
-                      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-indigo-400"><Mail className="w-5 h-5" /></div>
+                      <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-indigo-400"><Mail className="w-5 h-5" /></div>
                       <span className="text-xs font-bold text-slate-500">{resumeData.personal.email}</span>
                     </div>
                   )}
                   {resumeData.personal.phone && (
                     <div className="flex flex-col items-center gap-2">
-                      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-indigo-400"><Phone className="w-5 h-5" /></div>
+                      <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-indigo-400"><Phone className="w-5 h-5" /></div>
                       <span className="text-xs font-bold text-slate-500">{resumeData.personal.phone}</span>
                     </div>
                   )}
