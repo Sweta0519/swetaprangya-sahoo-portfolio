@@ -11,6 +11,10 @@ interface Project {
   techStack: string[];
   category: string;
   featured: boolean;
+  liveUrl?: string;
+  repoUrl?: string;
+  image?: string;
+  imageAlt?: string;
 }
 
 interface WorkExperience {
@@ -251,12 +255,25 @@ export default function App() {
   ],
   "projects": [
     {
+      "id": "proj-triage",
+      "title": "Support Ticket Triage",
+      "description": "A ticketing platform where the AI advises the engineer instead of talking to the customer. It classifies the issue, scores frustration and escalation risk, and uses pgvector to surface duplicates before anyone starts debugging. Staff query their own runbooks by semantic search in the ticket view, and it says when a runbook does not exist rather than inventing one. Drafts go to an audit table; a human approves anything customer-facing, with access locked by Postgres row-level security. The screenshot shows it ignoring a prompt injection planted in a ticket body and prioritising on the merits instead.",
+      "techStack": ["Next.js 16", "Supabase", "pgvector", "Postgres RLS", "Claude via OpenRouter", "TypeScript", "Vercel"],
+      "category": "Support tooling",
+      "featured": true,
+      "liveUrl": "https://support-triage-app-one.vercel.app/",
+      "repoUrl": "https://github.com/Sweta0519/support-triage-app",
+      "image": "/support-triage.png",
+      "imageAlt": "The ticket view: a billing ticket containing a planted prompt injection, beside the AI triage panel which categorises it as billing, sets High priority on the financial impact, scores frustration 2 of 5 at 95% confidence, lists related tickets and drafts a reply for a human to approve."
+    },
+    {
       "id": "proj-0",
       "title": "ProPortfolio Builder",
-      "description": "An all-in-one AI-driven resume parser, ATS compliance scanner, interactive resume coach, and professional web portfolio generator. Allows candidates to upload resumes, audit them against job listings, optimize content, customize styling, and export a fully responsive Vite + React + Tailwind CSS portfolio site.",
-      "techStack": ["React", "TypeScript", "Vite", "Tailwind CSS", "AI", "ATS", "Resume Parsing"],
+      "description": "An AI-driven resume parser, ATS compliance scanner and portfolio generator. Candidates upload a resume, audit it against a job listing, and export a responsive portfolio site.",
+      "techStack": ["React", "TypeScript", "Vite", "Supabase", "Stripe", "n8n"],
       "category": "AI Tools",
-      "featured": true
+      "featured": false,
+      "liveUrl": "https://pro-portfolio-builder.vercel.app/"
     }
   ],
   // Public work: every item is a link anyone can open and check. This is the
@@ -717,13 +734,39 @@ Reply to: ${contactEmail}`
             <ThemeSection title="Projects" id="projects" textHeading={textHeading}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {resumeData.projects.map((proj: any, idx: number) => (
-                  <div key={idx} className={` ${cardBg} border rounded-lg md:rounded-xl p-6 md:p-8 ${cardHoverBg} transition-colors group relative overflow-hidden flex flex-col`}>
-                    <div className={`absolute -right-4 -top-4 w-24 h-24 ${primaryBg} opacity-5 blur-2xl group-hover:opacity-20 transition-opacity`}></div>
-                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-lg mb-4 md:mb-6 ${primaryBg}/20 flex items-center justify-center ${primaryClass} border border-slate-200 dark:border-white/5`}>
-                      <Code className="w-6 h-6 md:w-7 md:h-7" />
-                    </div>
+                  <div key={idx} className={` ${cardBg} border rounded-lg md:rounded-xl p-6 md:p-8 ${cardHoverBg} transition-colors group relative overflow-hidden flex flex-col ${proj.image ? 'md:col-span-2' : ''}`}>
+                    {proj.image ? (
+                      <a href={proj.liveUrl || proj.repoUrl} target="_blank" rel="noreferrer" className="mb-6 block overflow-hidden rounded-lg border border-slate-200 dark:border-white/10">
+                        <img
+                          src={proj.image}
+                          alt={proj.imageAlt || `${proj.title} screenshot`}
+                          loading="lazy"
+                          width={1280}
+                          height={1011}
+                          className="w-full"
+                        />
+                      </a>
+                    ) : (
+                      <div className={`w-12 h-12 md:w-14 md:h-14 rounded-lg mb-4 md:mb-6 ${primaryBg}/20 flex items-center justify-center ${primaryClass} border border-slate-200 dark:border-white/5`}>
+                        <Code className="w-6 h-6 md:w-7 md:h-7" />
+                      </div>
+                    )}
                     <h3 className={`text-xl md:text-2xl font-bold ${textHeading} mb-2 md:mb-3 tracking-tight`}>{proj.title}</h3>
-                    <p className={`text-xs md:text-sm ${textBody} mb-6 md:mb-8 leading-relaxed line-clamp-4 flex-grow`}>{proj.description}</p>
+                    <p className={`text-xs md:text-sm ${textBody} mb-5 leading-relaxed flex-grow`}>{proj.description}</p>
+                    {(proj.liveUrl || proj.repoUrl) && (
+                      <div className="mb-5 flex flex-wrap gap-4">
+                        {proj.liveUrl && (
+                          <a href={proj.liveUrl} target="_blank" rel="noreferrer" className={`text-[11px] font-black uppercase tracking-[0.16em] ${primaryClass} underline-offset-4 hover:underline`}>
+                            Live app
+                          </a>
+                        )}
+                        {proj.repoUrl && (
+                          <a href={proj.repoUrl} target="_blank" rel="noreferrer" className={`text-[11px] font-black uppercase tracking-[0.16em] ${primaryClass} underline-offset-4 hover:underline`}>
+                            Source
+                          </a>
+                        )}
+                      </div>
+                    )}
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {proj.techStack.map((tech: string) => (
                         <span key={tech} className={`text-[9px] md:text-[10px] font-black uppercase tracking-widest ${pillBg} px-2.5 py-1.5 rounded-lg border`}>
