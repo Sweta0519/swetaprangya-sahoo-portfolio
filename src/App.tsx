@@ -738,8 +738,8 @@ export default function App() {
               <div className="p-10 rounded-xl bg-gradient-to-br from-blue-700 to-sky-600 text-white relative overflow-hidden shadow-2xl shadow-blue-500/20">
                 <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12">
                   <div className="space-y-6">
-                    <h3 className="text-4xl font-black tracking-tight leading-none">Let's build <br/> something epic.</h3>
-                    <p className="text-blue-100 font-medium">I'm currently available for freelance projects and full-time opportunities.</p>
+                    <h3 className="text-4xl font-black tracking-tight leading-none">Hiring for support <br/> engineering?</h3>
+                    <p className="text-blue-100 font-medium">I am looking for a senior support engineering role, Germany remote or EMEA-wide. Escalations, logs and APIs, with the public record above to check.</p>
                     <div className="pt-4 flex gap-4">
                       {resumeData.personal.socials.linkedin && (
                         <a href={resumeData.personal.socials.linkedin} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
@@ -775,7 +775,7 @@ export default function App() {
                         />
                         <textarea 
                           required value={contactMessage} onChange={e => setContactMessage(e.target.value)}
-                          placeholder="Your Project Idea" rows={4} 
+                          placeholder="Which role, and anything you would like to ask" rows={4} 
                           className="w-full bg-white/10 border border-white/10 rounded-lg p-4 text-sm focus:bg-white/20 outline-none transition-colors placeholder:text-white/40" 
                         />
                         <button type="submit" className="w-full py-4 bg-white text-blue-700 rounded-lg font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-colors shadow-xl">Send Message</button>
@@ -930,8 +930,8 @@ export default function App() {
             <section id="contact" className="py-24 scroll-slide">
               <div className="p-10 rounded-xl bg-gradient-to-br from-blue-700 to-sky-600 text-white relative overflow-hidden shadow-2xl shadow-blue-500/20">
                 <div className="relative z-10 flex flex-col items-center text-center space-y-6">
-                  <h3 className="text-4xl font-black tracking-tight leading-none">Let's build something epic.</h3>
-                  <p className="text-blue-100 font-medium max-w-xl">I'm currently available for freelance projects and full-time opportunities.</p>
+                  <h3 className="text-4xl font-black tracking-tight leading-none">Hiring for support engineering?</h3>
+                  <p className="text-blue-100 font-medium max-w-xl">I am looking for a senior support engineering role, Germany remote or EMEA-wide. Escalations, logs and APIs, with the public record above to check.</p>
                   
                   {submitSuccess ? (
                     <p className="text-emerald-400 font-bold text-center py-8">Thanks for reaching out! Message sent.</p>
@@ -949,7 +949,7 @@ export default function App() {
                       />
                       <textarea 
                         required value={contactMessage} onChange={e => setContactMessage(e.target.value)}
-                        placeholder="Your Project Idea" rows={4} 
+                        placeholder="Which role, and anything you would like to ask" rows={4} 
                         className="w-full bg-white/10 border border-white/10 rounded-lg p-4 text-sm focus:bg-white/20 outline-none transition-colors placeholder:text-white/40 text-left" 
                       />
                       <button type="submit" className="w-full py-4 bg-white text-blue-700 rounded-lg font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-colors shadow-xl">Send Message</button>
@@ -1125,7 +1125,7 @@ export default function App() {
               {resumeData.certificates && resumeData.certificates.length > 0 && (
                 <a href="#awards" className={`hover:${textHeading} transition-colors`}>Awards</a>
               )}
-              <a href="#contact" className={`px-4 py-2 rounded-xl ${colors.bg} text-white hover:opacity-85 hover:scale-[1.03] transition-colors text-[10px]`}>Hire Me</a>
+              <a href="#contact" className={`px-4 py-2 rounded-xl ${colors.bg} text-white hover:opacity-85 hover:scale-[1.03] transition-colors text-[10px]`}>Get in touch</a>
             </nav>
 
             <button 
@@ -1183,7 +1183,7 @@ export default function App() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`w-full py-4 rounded-lg ${colors.bg} ${colors.glow} text-white font-black uppercase tracking-widest text-[10px] text-center block transition-colors hover:opacity-90 active:scale-[0.98] shadow-lg`}
                   >
-                    Hire Me
+                    Get in touch
                   </a>
                 </div>
               </div>
@@ -1362,7 +1362,7 @@ export default function App() {
                     />
                     <textarea 
                       required value={contactMessage} onChange={e => setContactMessage(e.target.value)}
-                      placeholder="Your Project Idea" rows={4} 
+                      placeholder="Which role, and anything you would like to ask" rows={4} 
                       className="w-full bg-slate-800 border border-slate-700 rounded-lg p-4 text-sm focus:bg-slate-700 outline-none transition-colors placeholder:text-white/40 text-left" 
                     />
                     <button type="submit" className="w-full py-4 bg-white text-blue-700 rounded-lg font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-[0.98] transition-colors shadow-xl">Send Message</button>
