@@ -143,35 +143,38 @@ export default function App() {
     "avatar": "SS",
     "email": "swetapsahoo05@gmail.com",
     "phone": "+491728314843",
-    "location": "",
+    "location": "Hamburg, Germany (CET)",
     "socials": {
       "linkedin": "https://linkedin.com/in/swetaprangya-sahoo-105493b2",
+      "github": "https://github.com/Sweta0519",
       "email": "mailto:swetapsahoo05@gmail.com"
     }
   },
   "experience": [
     {
       "id": "exp-1",
-      "company": "Sauce Labs GmbH",
+      "company": "Sauce Labs Europe Services GmbH",
       "position": "Senior Customer Support Engineer",
-      "location": "Berlin/Remote",
-      "period": "Aug 2021 - Present",
+      "location": "Berlin, Germany (Remote)",
+      "period": "Aug 2021 - May 2026",
       "description": [
-        "Led root-cause investigations for 40+ high-priority enterprise escalations weekly, diving into server logs and proxies to fix infrastructure while maintaining a 98% SLA.",
-        "Investigated network payloads and secure proxy logs to debug complex API failures.",
-        "Debugged customer API integrations and delivered detailed bug reports to Engineering.",
-        "Built internal tools using Python and AI assistants to parse and analyze complex system logs, which reduced our manual troubleshooting time by around 30 %.",
-        "Wrote technical documentation and knowledge base articles, turning one-off bug fixes into reusable resources for the support team."
+        "Supported developers and QA teams on the Sauce Labs cloud test execution platform, helping them configure automated tests across real browsers and devices and debug failing runs. Up to 40 tickets a week across email, chat and Slack.",
+        "Owned L2/L3 escalations end to end, writing SQL to investigate transaction data and diagnose customer-facing issues across log platforms and internal databases.",
+        "Used curl, grep, tail and jq alongside AI assistants to speed up log investigation and reproduce complex API failures.",
+        "Reproduced issues in test environments, wrote test cases, and escalated bugs to engineering with clear reproduction steps.",
+        "Built internal tooling in Python with AI assistants to automate log analysis, cutting manual troubleshooting time by around 30%.",
+        "Wrote knowledge base articles, playbooks and runbooks that turned one-off fixes into reusable resources for the team."
       ]
     },
     {
       "id": "exp-2",
-      "company": "Sauce Labs GmbH",
-      "position": "Customer Support Engineer",
-      "location": "Berlin/Remote",
-      "period": "Aug 2020 - Aug 2021",
+      "company": "DXC Technology (HP Company)",
+      "position": "Technical Support Analyst",
+      "location": "Bangalore, India",
+      "period": "Jul 2016 - Oct 2019",
       "description": [
-        "Provided technical support for Sauce Labs' Continuous Testing Cloud, resolving complex issues related to automated testing, CI/CD pipelines, and integrations."
+        "Resolved critical system outages for enterprise clients across APJ, EMEA and the Americas within SLA.",
+        "Managed high-severity incidents in Jira, holding ticket ownership and clear communication through to closure."
       ]
     }
   ],
@@ -240,10 +243,10 @@ export default function App() {
   "education": [
     {
       "id": "edu-1",
-      "institution": "Technische Universität Berlin",
-      "degree": "Master of Science",
-      "fieldOfStudy": "Computer Science",
-      "period": "Oct 2018 - Mar 2021",
+      "institution": "Institute of Technical Education and Research (ITER)",
+      "degree": "Bachelor of Technology (B.Tech)",
+      "fieldOfStudy": "Electronics & Instrumentation Engineering",
+      "period": "Aug 2010 - Aug 2014"
     }
   ],
   "projects": [
@@ -507,15 +510,23 @@ export default function App() {
     };
   }, [isDark]);
 
+  // There is no backend. Rather than show a success message and discard the
+  // message, hand it to the mail client with the fields already filled in, so
+  // the sender can see exactly what is being sent and to whom.
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setTimeout(() => {
-      setSubmitSuccess(true);
-      setContactName('');
-      setContactEmail('');
-      setContactMessage('');
-      setTimeout(() => setSubmitSuccess(false), 4000);
-    }, 1000);
+    const to = resumeData.personal.email;
+    const subject = encodeURIComponent(`Portfolio enquiry from ${contactName || 'someone'}`);
+    const body = encodeURIComponent(
+      `${contactMessage}
+
+---
+From: ${contactName}
+Reply to: ${contactEmail}`
+    );
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    setSubmitSuccess(true);
+    setTimeout(() => setSubmitSuccess(false), 6000);
   };
 
   // The sidebar now shows a portrait instead of the 3D monogram, so the
@@ -523,9 +534,6 @@ export default function App() {
   // decorative shape. The component file is still in the repo if it is ever
   // wanted elsewhere.
   //
-  // If the portrait ever fails to load, fall back to the initials rather than
-  // leaving a hole where a face should be.
-  const [avatarFailed, setAvatarFailed] = useState(false);
 
   if (theme.id === 'creative') {
     return (
@@ -534,32 +542,93 @@ export default function App() {
             hardcoded indigo while the theme is blue. They were decoration with
             no job, and the pulse ran forever on every page. Removed. */}
 
+        {/* Cover. A warm, deliberately non-technical opening before the dark
+            technical body: the name at display size, the positioning in one
+            sentence, and a face. The gradient is a chosen brand decision, not
+            the default purple, and it appears exactly once. */}
+        <header className="relative isolate overflow-hidden bg-[linear-gradient(135deg,#0b1020_0%,#132449_40%,#1d4ed8_78%,#38bdf8_100%)]">
+          <div className="mx-auto w-full max-w-7xl px-6 py-10 md:px-12 md:py-14">
+            <div className="flex items-center justify-between gap-4">
+              <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/90">
+                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-white/80" />
+                {resumeData.personal.name}
+              </span>
+              <nav className="hidden gap-6 text-[11px] font-bold uppercase tracking-[0.18em] text-white/70 sm:flex">
+                {['Public work', 'Experience', 'Contact'].map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="transition-colors hover:text-white"
+                  >
+                    {item}
+                  </a>
+                ))}
+              </nav>
+            </div>
+
+            <div className="mt-12 grid items-end gap-10 md:mt-20 md:grid-cols-[1.25fr_0.75fr]">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/70">
+                  {resumeData.personal.title}
+                </p>
+                <h1 className="mt-4 font-black leading-[0.85] tracking-tight text-white text-[clamp(3rem,11vw,8rem)]">
+                  Sweta
+                </h1>
+                <p className="mt-6 max-w-xl text-xl leading-snug text-white md:text-3xl">
+                  Finding the <span className="text-sky-300">root cause</span> of API and
+                  integration failures, and turning them into{' '}
+                  <span className="text-sky-300">product fixes</span>.
+                </p>
+                <p className="mt-5 max-w-md text-sm leading-relaxed text-white/80">
+                  {resumeData.personal.subtitle}. Escalations, logs and APIs, with the public
+                  record below to check.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a
+                    href="#public-work"
+                    className="rounded-lg bg-white px-6 py-3 text-[11px] font-black uppercase tracking-[0.18em] text-blue-900 transition-colors hover:bg-sky-100"
+                  >
+                    See the public work
+                  </a>
+                  <a
+                    href="#contact"
+                    className="rounded-lg border border-white/40 px-6 py-3 text-[11px] font-black uppercase tracking-[0.18em] text-white transition-colors hover:border-white"
+                  >
+                    Get in touch
+                  </a>
+                </div>
+              </div>
+
+              {/* No portrait. A photograph on a public page is scrapable and
+                  buys nothing next to the work itself, so the cover carries
+                  the record instead of a face. */}
+              <ul className="hidden gap-3 md:grid animate-avatarArrive">
+                {[
+                  { k: 'Merged upstream', v: 'Camunda, Docker' },
+                  { k: 'Open pull requests', v: 'Supabase, Camunda' },
+                  { k: 'Published', v: 'Runbooks and root-cause write-ups' },
+                  { k: 'Based in', v: 'Hamburg, CET' },
+                ].map((row) => (
+                  <li
+                    key={row.k}
+                    className="border-l-2 border-white/30 pl-4 py-1"
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/60">
+                      {row.k}
+                    </p>
+                    <p className="text-sm font-semibold text-white">{row.v}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </header>
+
         <div className="relative z-10 flex flex-col md:flex-row min-h-screen">
           <aside className={`w-full md:w-80 md:min-h-screen p-6 md:p-8 md:sticky md:top-0 flex flex-col ${sidebarBg}`}>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <div className="relative mb-4 md:mb-6 h-40 w-40 z-20 animate-avatarArrive">
-                  <div
-                    aria-hidden="true"
-                    className={`absolute -inset-2 rounded-xl ${primaryBg}/20 blur-xl animate-avatarRing`}
-                  />
-                  {avatarFailed ? (
-                    <div
-                      className={`relative h-full w-full rounded-lg border border-slate-200 dark:border-white/20 shadow-2xl ${primaryBg}/20 flex items-center justify-center text-3xl md:text-4xl font-black ${textHeading}`}
-                    >
-                      {resumeData.personal.avatar}
-                    </div>
-                  ) : (
-                    <img
-                      src="/avatar.jpg"
-                      alt={`Portrait of ${resumeData.personal.name}`}
-                      width={160}
-                      height={160}
-                      loading="eager"
-                      onError={() => setAvatarFailed(true)}
-                      className="relative h-full w-full rounded-lg object-cover border border-slate-200 dark:border-white/20 shadow-2xl"
-                    />
-                  )}
-                </div>
+              {/* The portrait lives in the cover now. Repeating it here was
+                  the same face twice within one screen. */}
               <h1 className={`text-2xl md:text-3xl font-black ${textHeading} tracking-tight mb-2 leading-tight break-words w-full`}>{resumeData.personal.name}</h1>
               <p className={`text-xs md:text-sm font-bold uppercase tracking-widest ${primaryClass}`}>{resumeData.personal.title}</p>
               
@@ -760,7 +829,7 @@ export default function App() {
                   </div>
                   <div className="bg-white/5 rounded-lg p-6 md:p-8">
                     {submitSuccess ? (
-                      <p className="text-emerald-400 font-bold text-center py-8">Thanks for reaching out! Message sent.</p>
+                      <p className="text-emerald-400 font-bold text-center py-8">Your mail client should have opened with this message ready to send. If it did not, write to swetapsahoo05@gmail.com.</p>
                     ) : (
                       <form onSubmit={handleFormSubmit} className="space-y-4">
                         <input 
@@ -934,7 +1003,7 @@ export default function App() {
                   <p className="text-blue-100 font-medium max-w-xl">I am looking for a senior support engineering role, Germany remote or EMEA-wide. Escalations, logs and APIs, with the public record above to check.</p>
                   
                   {submitSuccess ? (
-                    <p className="text-emerald-400 font-bold text-center py-8">Thanks for reaching out! Message sent.</p>
+                    <p className="text-emerald-400 font-bold text-center py-8">Your mail client should have opened with this message ready to send. If it did not, write to swetapsahoo05@gmail.com.</p>
                   ) : (
                     <form onSubmit={handleFormSubmit} className="space-y-4 max-w-md w-full">
                       <input 
@@ -1347,7 +1416,7 @@ export default function App() {
                 <p className="text-slate-400 max-w-xl text-sm md:text-lg font-medium">I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.</p>
                 
                 {submitSuccess ? (
-                  <p className="text-emerald-400 font-bold text-center py-4">Thanks for reaching out! Message sent.</p>
+                  <p className="text-emerald-400 font-bold text-center py-4">Your mail client should have opened with this message ready to send. If it did not, write to swetapsahoo05@gmail.com.</p>
                 ) : (
                   <form onSubmit={handleFormSubmit} className="space-y-4 max-w-md w-full">
                     <input 

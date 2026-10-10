@@ -27,3 +27,5 @@ Thumbs.db
 .cache/
 dist/
 
+.vercel
+.env*

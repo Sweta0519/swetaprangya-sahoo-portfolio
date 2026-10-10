@@ -1,0 +1,84 @@
+[     207ms] [LOG] %c
+▲
+
+    ________   _ __ _          ____           __
+   /  _/ __/  (_) /( )_____   / __/___ ______/ /_
+   / // /_   / / __/// ___/  / /_/ __ `/ ___/ __/
+ _/ // __/  / / /_  (__  )  / __/ /_/ (__  ) /_
+/___/_/    /_/\__/ /____/  /_/  \__,_/____/\__/
+    _ __ _                         _    __                    __
+   (_) /( )_____   ____  ____     | |  / /__  _____________  / /
+  / / __/// ___/  / __ \/ __ \    | | / / _ \/ ___/ ___/ _ \/ /
+ / / /_  (__  )  / /_/ / / / /    | |/ /  __/ /  / /__/  __/ /
+/_/\__/ /____/   \____/_/ /_/     |___/\___/_/   \___/\___/_/
+  
+
+Hello!
+
+- Open Source https://vercel.com/oss
+- Careers https://vercel.com/careers
+- Status https://vercel-status.com
+
+ font-family: "Geist Mono", monospace; white-space: pre; line-height: 1; @ https://vercel.com/_next/static/chunks/2g0axoh_w9yfh.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:78
+[     221ms] [ERROR] Loading the font 'https://k2mkucxia43oc7fa.public.blob.vercel-storage.com/front/fonts/space-mono/space-mono-v11-latin-regular.woff2' violates the following Content Security Policy directive: "font-src 'self' *.vercel.com *.gstatic.com vercel.live". The action has been blocked. @ https://vercel.com/dashboard/git:244
+[     618ms] [WARNING] iso_swr: SSR fetch failed for "/v1/dashboard/projects/git?teamId=dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/dashboard/git:472
+[     830ms] [WARNING] iso_swr: SSR fetch failed for "/api/v2/teams/dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/dashboard/git:791
+[     921ms] [WARNING] iso_swr: SSR fetch failed for "/api/v9/projects/git?activeBranches=1&latestDeployments=1&rollbackInfo=true&teamId=dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/dashboard/git:892
+[     922ms] [WARNING] iso_swr: SSR fetch failed for "/api/v6/deployments?limit=10&projectId=git&rollbackCandidate=true&teamId=dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/dashboard/git:993
+[     937ms] [WARNING] iso_swr: SSR fetch failed for "/dashboard/projects/git/production-checklist?teamId=dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/dashboard/git:1099
+[     938ms] [WARNING] iso_swr: SSR fetch failed for "/api/v6/deployments?limit=10&projectId=git&state=INITIALIZING%2CREADY%2CERROR%2CBUILDING%2CQUEUED&target=preview&teamId=dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/dashboard/git:1200
+[    1591ms] [WARNING] iso_swr[warn] [client] fallback error for key: "/api/v2/teams/dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/_next/static/chunks/0hoso-7e-b_zu.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:11
+[    1619ms] [WARNING] iso_swr[warn] [client] fallback error for key: "/v1/dashboard/projects/git?teamId=dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/_next/static/chunks/0hoso-7e-b_zu.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:11
+[    1634ms] [WARNING] iso_swr[warn] [client] fallback error for key: "/api/v9/projects/git?activeBranches=1&latestDeployments=1&rollbackInfo=true&teamId=dashboard" {error: iso_swr_fetch_error, message: Not authorized} @ https://vercel.com/_next/static/chunks/0hoso-7e-b_zu.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:11
+[    2356ms] [ERROR] Failed to load resource: net::ERR_CERT_DATE_INVALID @ https://cdn1.vercel.com/vercel.svg:0
+[    2358ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/v1/dashboard/projects/git?teamId=dashboard:0
+[    2368ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/v9/projects/git?activeBranches=1&latestDeployments=1&rollbackInfo=true&teamId=dashboard:0
+[    2368ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/v2/teams/dashboard:0
+[    2456ms] [LOG] Ignored request error CustomFetchError: Not authorized
+    at d (https://vercel.com/_next/static/chunks/3dh45_sl3ltmc.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:2:22503)
+    at async https://vercel.com/_next/static/chunks/3cw6-g09c0h8j.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:2:15381 @ https://vercel.com/_next/static/chunks/2a5iihhnzdnys.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:4
+[    2457ms] [LOG] Ignored request error CustomFetchError: Not authorized
+    at d (https://vercel.com/_next/static/chunks/3dh45_sl3ltmc.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:2:22503)
+    at async https://vercel.com/_next/static/chunks/3cw6-g09c0h8j.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:2:15381 @ https://vercel.com/_next/static/chunks/2a5iihhnzdnys.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:4
+[    2532ms] [WARNING] Deprecated API for given entry type. @ https://vercel.com/_next/static/chunks/1a7e-ig7xwiza.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:18
+[    2533ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/recents?hydrateLimit=30&limit=7&teamId=dashboard&type=preview:0
+[    2534ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/v2/dashboard/projects?favorites=1&limit=25&teamId=dashboard:0
+[    2571ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/nav/sidebar/badges?scope=project&teamId=dashboard&projectId=git:0
+[    2675ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/user/permissions?projectIdOrName=git&slug=dashboard:0
+[    7908ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/user/permissions?projectIdOrName=git&slug=dashboard:0
+[    9651ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/v2/teams/dashboard:0
+[    9653ms] [LOG] Ignored request error CustomFetchError: Not authorized
+    at d (https://vercel.com/_next/static/chunks/3dh45_sl3ltmc.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:2:22503)
+    at async https://vercel.com/_next/static/chunks/3cw6-g09c0h8j.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:2:15381 @ https://vercel.com/_next/static/chunks/1a7e-ig7xwiza.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:16
+[    9918ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://vercel.com/api/v2/teams/dashboard:0
+[    9919ms] [LOG] Ignored request error CustomFetchError: Not authorized
+    at d (https://vercel.com/_next/static/chunks/3dh45_sl3ltmc.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:2:22503)
+    at async https://vercel.com/_next/static/chunks/3cw6-g09c0h8j.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:2:15381 @ https://vercel.com/_next/static/chunks/1a7e-ig7xwiza.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:16
+[   15685ms] [WARNING] The resource https://vercel.com/_next/static/chunks/3_ievhbgysuv-.css?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://vercel.com/abhishek572021-9716s-projects:0
+[   24065ms] [ERROR] Loading the font 'https://k2mkucxia43oc7fa.public.blob.vercel-storage.com/front/fonts/space-mono/space-mono-v11-latin-regular.woff2' violates the following Content Security Policy directive: "font-src 'self' *.vercel.com *.gstatic.com vercel.live". The action has been blocked. @ https://vercel.com/abhishek572021-9716s-projects:619
+[   24103ms] [LOG] %c
+▲
+
+    ________   _ __ _          ____           __
+   /  _/ __/  (_) /( )_____   / __/___ ______/ /_
+   / // /_   / / __/// ___/  / /_/ __ `/ ___/ __/
+ _/ // __/  / / /_  (__  )  / __/ /_/ (__  ) /_
+/___/_/    /_/\__/ /____/  /_/  \__,_/____/\__/
+    _ __ _                         _    __                    __
+   (_) /( )_____   ____  ____     | |  / /__  _____________  / /
+  / / __/// ___/  / __ \/ __ \    | | / / _ \/ ___/ ___/ _ \/ /
+ / / /_  (__  )  / /_/ / / / /    | |/ /  __/ /  / /__/  __/ /
+/_/\__/ /____/   \____/_/ /_/     |___/\___/_/   \___/\___/_/
+  
+
+Hello!
+
+- Open Source https://vercel.com/oss
+- Careers https://vercel.com/careers
+- Status https://vercel-status.com
+
+ font-family: "Geist Mono", monospace; white-space: pre; line-height: 1; @ https://vercel.com/_next/static/chunks/2g0axoh_w9yfh.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:78
+[   25732ms] [ERROR] Failed to load resource: net::ERR_CERT_DATE_INVALID @ https://cdn1.vercel.com/vercel.svg:0
+[   26608ms] [WARNING] Deprecated API for given entry type. @ https://vercel.com/_next/static/chunks/1a7e-ig7xwiza.js?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec:18
+[   30538ms] [WARNING] The resource https://vercel.com/_next/static/chunks/3_ievhbgysuv-.css?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://vercel.com/abhishek572021-9716s-projects:0
+[   39754ms] [WARNING] The resource https://vercel.com/_next/static/chunks/3_ievhbgysuv-.css?dpl=dpl_9QCzVW5k4j9HpkhrSYnDduLFL5ec was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://vercel.com/abhishek572021-9716s-projects:0

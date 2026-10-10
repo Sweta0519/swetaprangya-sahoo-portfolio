@@ -1,35 +1,48 @@
 import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Text } from '@react-three/drei';
 
 interface BoxProps {
   color?: string;
+  initials: string;
 }
 
 function RotatingBox(props: BoxProps) {
-  // avoid requiring `@types/three` here by using a generic ref type
   const meshRef = useRef<any>(null);
-  useFrame(() => {
+  const { viewport } = useThree();
+
+  useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x += 0.01;
-      meshRef.current.rotation.y += 0.01;
+      // Rotate the box based on mouse position
+      const x = (state.mouse.x * viewport.width) / 2;
+      const y = (state.mouse.y * viewport.height) / 2;
+      meshRef.current.rotation.x = y * 0.1;
+      meshRef.current.rotation.y = x * 0.1;
     }
   });
 
   return (
     <mesh {...props} ref={meshRef}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={props.color || 'hotpink'} />
+      <Text
+        font="/Inter-Bold.woff"
+        fontSize={0.7}
+        color={props.color || 'hotpink'}
+        anchorX="center"
+        anchorY="middle"
+      >
+        {props.initials}
+      </Text>
     </mesh>
   );
 }
 
 export default function Hero3DModel() {
   return (
-    <Canvas camera={{ position: [0, 0, 2] }}>
+    <Canvas id="hero-3d-canvas" style={{ width: '100%', height: '100%' }} camera={{ position: [0, 0, 2] }}>
       <ambientLight intensity={0.5} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
-      <RotatingBox color="#3b82f6" /> {/* Using a blue color */}
+      <RotatingBox color="#3b82f6" initials="SS" /> {/* Using a blue color and initials */}
     </Canvas>
   );
 }
